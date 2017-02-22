@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=SerialDayFileVerify6
+PROJECTNAME=SerialDayFileCM
 
 # Active Configuration
 DEFAULTCONF=default

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production\SerialDayFileVerify6.production.hex">
+  <executable name="dist/default/production\SerialDayFileCM.production.hex">
     <memory name="program">
       <units>bytes</units>
       <length>32768</length>
-      <used>20070</used>
-      <free>12698</free>
+      <used>19570</used>
+      <free>13198</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>1536</length>
-      <used>956</used>
-      <free>580</free>
+      <used>962</used>
+      <free>574</free>
     </memory>
   </executable>
 </project>

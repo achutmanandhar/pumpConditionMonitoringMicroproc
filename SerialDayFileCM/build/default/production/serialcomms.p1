@@ -5648,96 +5648,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;serialcomms.c: 213: {
 "213
 {
-[; ;serialcomms.c: 216: printf("Performing on-pump CM...\n");
-"216
-[e ( _printf :s 15C ]
-[; ;serialcomms.c: 219: printf("Input signal...\n");
-"219
-[e ( _printf :s 16C ]
-[; ;serialcomms.c: 220: for (int iTemp=0;iTemp<128;iTemp++){
-"220
-{
-[v _iTemp `i ~T0 @X0 1 a ]
-[e = _iTemp -> 0 `i ]
-[e $ < _iTemp -> 128 `i 432  ]
-[e $U 433  ]
-[e :U 432 ]
-{
-[; ;serialcomms.c: 221: printf("\t%i %6i %6i\n",iTemp,cmYreal[iTemp],cmYimag[iTemp]);
-"221
-[e ( _printf , , , (. :s 17C _iTemp -> *U + &U _cmYreal * -> -> _iTemp `ui `ux -> -> # *U &U _cmYreal `ui `ux `i -> *U + &U _cmYimag * -> -> _iTemp `ui `ux -> -> # *U &U _cmYimag `ui `ux `i ]
-"222
-}
-"220
-[e ++ _iTemp -> 1 `i ]
-[e $ < _iTemp -> 128 `i 432  ]
-[e :U 433 ]
-"222
-}
-[; ;serialcomms.c: 222: }
-[; ;serialcomms.c: 226: printf("\tComputing HPF...\n");
-"226
-[e ( _printf :s 18C ]
 [; ;serialcomms.c: 227: cmFilterHighPassUsingLowPass();
 "227
 [e ( _cmFilterHighPassUsingLowPass ..  ]
-[; ;serialcomms.c: 229: for (int iTemp=0;iTemp<128;iTemp++){
-"229
-{
-[v _iTemp `i ~T0 @X0 1 a ]
-[e = _iTemp -> 0 `i ]
-[e $ < _iTemp -> 128 `i 435  ]
-[e $U 436  ]
-[e :U 435 ]
-{
-[; ;serialcomms.c: 230: printf("\t%i %6i\n",iTemp,cmYreal[iTemp]);
-"230
-[e ( _printf , , (. :s 19C _iTemp -> *U + &U _cmYreal * -> -> _iTemp `ui `ux -> -> # *U &U _cmYreal `ui `ux `i ]
-"231
-}
-"229
-[e ++ _iTemp -> 1 `i ]
-[e $ < _iTemp -> 128 `i 435  ]
-[e :U 436 ]
-"231
-}
-[; ;serialcomms.c: 231: }
-[; ;serialcomms.c: 235: printf("\tComputing FFT...\n");
-"235
-[e ( _printf :s 20C ]
 [; ;serialcomms.c: 236: cmFftFun();
 "236
 [e ( _cmFftFun ..  ]
-[; ;serialcomms.c: 239: for (int iTemp=0;iTemp<128/2;iTemp++){
-"239
-{
-[v _iTemp `i ~T0 @X0 1 a ]
-[e = _iTemp -> 0 `i ]
-[e $ < _iTemp / -> 128 `i -> 2 `i 438  ]
-[e $U 439  ]
-[e :U 438 ]
-{
-[; ;serialcomms.c: 240: printf("\t%i %6i\n",iTemp,cmYreal[iTemp]);
-"240
-[e ( _printf , , (. :s 21C _iTemp -> *U + &U _cmYreal * -> -> _iTemp `ui `ux -> -> # *U &U _cmYreal `ui `ux `i ]
-"241
-}
-"239
-[e ++ _iTemp -> 1 `i ]
-[e $ < _iTemp / -> 128 `i -> 2 `i 438  ]
-[e :U 439 ]
-"241
-}
-[; ;serialcomms.c: 241: }
-[; ;serialcomms.c: 245: printf("\tTesting classifier...\n");
-"245
-[e ( _printf :s 22C ]
 [; ;serialcomms.c: 246: cmYout = 1*cmWeightVector[0];
 "246
 [e = _cmYout * -> 1 `i -> *U + &U _cmWeightVector * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmWeightVector `ui `ux `i ]
 [; ;serialcomms.c: 248: printf("\t%i %i %i\n",1,cmWeightVector[0],cmYout);
 "248
-[e ( _printf , , , (. :s 23C -> 1 `i -> *U + &U _cmWeightVector * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmWeightVector `ui `ux `i _cmYout ]
+[e ( _printf , , , (. :s 15C -> 1 `i -> *U + &U _cmWeightVector * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmWeightVector `ui `ux `i _cmYout ]
 [; ;serialcomms.c: 249: for (int iW=1,iTemp=2;iW<21;iW++,iTemp=iTemp+3){
 "249
 {
@@ -5745,49 +5667,46 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _iW -> 1 `i ]
 [v _iTemp `i ~T0 @X0 1 a ]
 [e = _iTemp -> 2 `i ]
-[e $ < _iW -> 21 `i 441  ]
-[e $U 442  ]
-[e :U 441 ]
+[e $ < _iW -> 21 `i 432  ]
+[e $U 433  ]
+[e :U 432 ]
 {
-[; ;serialcomms.c: 250: cmYout = cmYout+cmYreal[iTemp]*cmWeightVector[iW];
-"250
-[e = _cmYout + _cmYout * -> *U + &U _cmYreal * -> -> _iTemp `ui `ux -> -> # *U &U _cmYreal `ui `ux `i -> *U + &U _cmWeightVector * -> -> _iW `ui `ux -> -> # *U &U _cmWeightVector `ui `ux `i ]
-[; ;serialcomms.c: 251: printf("\t%i %i %i\n",cmYreal[iTemp],cmWeightVector[iW],cmYout);
-"251
-[e ( _printf , , , (. :s 24C -> *U + &U _cmYreal * -> -> _iTemp `ui `ux -> -> # *U &U _cmYreal `ui `ux `i -> *U + &U _cmWeightVector * -> -> _iW `ui `ux -> -> # *U &U _cmWeightVector `ui `ux `i _cmYout ]
-"252
+[; ;serialcomms.c: 253: cmYout = cmYout+cmWeightVector[iW]*10*log(cmYreal[iTemp])/log(10);
+"253
+[e = _cmYout -> + -> _cmYout `d / * -> * -> *U + &U _cmWeightVector * -> -> _iW `ui `ux -> -> # *U &U _cmWeightVector `ui `ux `i -> 10 `i `d ( _log (1 -> *U + &U _cmYreal * -> -> _iTemp `ui `ux -> -> # *U &U _cmYreal `ui `ux `d ( _log (1 -> -> 10 `i `d `i ]
+"256
 }
 "249
 [e ; ++ _iW -> 1 `i = _iTemp + _iTemp -> 3 `i ]
-[e $ < _iW -> 21 `i 441  ]
-[e :U 442 ]
-"252
+[e $ < _iW -> 21 `i 432  ]
+[e :U 433 ]
+"256
 }
-[; ;serialcomms.c: 252: }
-[; ;serialcomms.c: 255: printf("%6i,%6i,%6i,%5u,%i\r\n", x, y, z,tt,cmYout);
-"255
-[e ( _printf , , , , , (. :s 25C _x _y _z _tt _cmYout ]
-[; ;serialcomms.c: 257: cmWinLen = 0;
-"257
+[; ;serialcomms.c: 256: }
+[; ;serialcomms.c: 259: printf("%6i,%6i,%6i,%5u,%i\r\n", x, y, z,tt,cmYout);
+"259
+[e ( _printf , , , , , (. :s 16C _x _y _z _tt _cmYout ]
+[; ;serialcomms.c: 261: cmWinLen = 0;
+"261
 [e = _cmWinLen -> 0 `i ]
-"258
+"262
 }
 [e :U 431 ]
-[; ;serialcomms.c: 258: }
-[; ;serialcomms.c: 259: }
-"259
+[; ;serialcomms.c: 262: }
+[; ;serialcomms.c: 263: }
+"263
 [e :UE 429 ]
 }
-"261
+"265
 [v _cmFilterHighPassUsingLowPass `(v ~T0 @X0 1 ef ]
 {
-[; ;serialcomms.c: 261: void cmFilterHighPassUsingLowPass(){
+[; ;serialcomms.c: 265: void cmFilterHighPassUsingLowPass(){
 [e :U _cmFilterHighPassUsingLowPass ]
 [f ]
-[v F4485 `i ~T0 @X0 -> 4 `i s ]
-[i F4485
+[v F4482 `i ~T0 @X0 -> 4 `i s ]
+[i F4482
 :U ..
-"264
+"268
 -> 1 `i
 -> 1 `i
 -> 1 `i
@@ -5795,247 +5714,238 @@ Version 3.2 HI-TECH Software Intermediate Code
 ..
 ]
 [v _cmFilterCoeff `i ~T0 @X0 -> 4 `i a ]
-[; ;serialcomms.c: 264: int cmFilterCoeff[4] = {1, 1, 1, 1};
-[e = _cmFilterCoeff F4485 ]
-"269
-[v _Nsignal `i ~T0 @X0 1 a ]
-[; ;serialcomms.c: 269: int Nsignal = sizeof(cmYreal)/sizeof(cmYreal[0]);
-[e = _Nsignal -> / -> # _cmYreal `ui -> # *U + &U _cmYreal * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux `ui `i ]
+[; ;serialcomms.c: 268: int cmFilterCoeff[4] = {1, 1, 1, 1};
+[e = _cmFilterCoeff F4482 ]
 "273
+[v _Nsignal `i ~T0 @X0 1 a ]
+[; ;serialcomms.c: 273: int Nsignal = sizeof(cmYreal)/sizeof(cmYreal[0]);
+[e = _Nsignal -> / -> # _cmYreal `ui -> # *U + &U _cmYreal * -> -> -> 0 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux `ui `i ]
+"277
 [v _xBuffer `i ~T0 @X0 1 a ]
-[; ;serialcomms.c: 273: int xBuffer = 0;
+[; ;serialcomms.c: 277: int xBuffer = 0;
 [e = _xBuffer -> 0 `i ]
-[; ;serialcomms.c: 274: for (int i=4/2; i<Nsignal+4/2; i++){
-"274
+[; ;serialcomms.c: 278: for (int i=4/2; i<Nsignal+4/2; i++){
+"278
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i / -> 4 `i -> 2 `i ]
-[e $U 448  ]
-[e :U 445 ]
+[e $U 439  ]
+[e :U 436 ]
 {
-"275
+"279
 [v _xLPF `i ~T0 @X0 1 a ]
-[; ;serialcomms.c: 275: int xLPF = 0;
+[; ;serialcomms.c: 279: int xLPF = 0;
 [e = _xLPF -> 0 `i ]
-[; ;serialcomms.c: 276: if (i+1<4){
-"276
-[e $ ! < + _i -> 1 `i -> 4 `i 449  ]
+[; ;serialcomms.c: 280: if (i+1<4){
+"280
+[e $ ! < + _i -> 1 `i -> 4 `i 440  ]
 {
-[; ;serialcomms.c: 277: for (int j=i, k=0; j>=0; k++,j--){
-"277
+[; ;serialcomms.c: 281: for (int j=i, k=0; j>=0; k++,j--){
+"281
 {
 [v _j `i ~T0 @X0 1 a ]
 [e = _j _i ]
 [v _k `i ~T0 @X0 1 a ]
 [e = _k -> 0 `i ]
-[e $ >= _j -> 0 `i 450  ]
-[e $U 451  ]
-[e :U 450 ]
+[e $ >= _j -> 0 `i 441  ]
+[e $U 442  ]
+[e :U 441 ]
 {
-[; ;serialcomms.c: 278: xLPF = xLPF + cmFilterCoeff[k]*cmYreal[j];
-"278
+[; ;serialcomms.c: 282: xLPF = xLPF + cmFilterCoeff[k]*cmYreal[j];
+"282
 [e = _xLPF + _xLPF * *U + &U _cmFilterCoeff * -> -> _k `ui `ux -> -> # *U &U _cmFilterCoeff `ui `ux -> *U + &U _cmYreal * -> -> _j `ui `ux -> -> # *U &U _cmYreal `ui `ux `i ]
-"280
-}
-"277
-[e ; ++ _k -> 1 `i -- _j -> 1 `i ]
-[e $ >= _j -> 0 `i 450  ]
-[e :U 451 ]
-"280
+"284
 }
 "281
+[e ; ++ _k -> 1 `i -- _j -> 1 `i ]
+[e $ >= _j -> 0 `i 441  ]
+[e :U 442 ]
+"284
 }
-[; ;serialcomms.c: 280: }
-[; ;serialcomms.c: 281: }
-[e $U 453  ]
-"282
-[e :U 449 ]
-[; ;serialcomms.c: 282: else{
+"285
+}
+[; ;serialcomms.c: 284: }
+[; ;serialcomms.c: 285: }
+[e $U 444  ]
+"286
+[e :U 440 ]
+[; ;serialcomms.c: 286: else{
 {
-[; ;serialcomms.c: 283: for (int j=0; j<4; j++){
-"283
+[; ;serialcomms.c: 287: for (int j=0; j<4; j++){
+"287
 {
 [v _j `i ~T0 @X0 1 a ]
 [e = _j -> 0 `i ]
-[e $ < _j -> 4 `i 454  ]
-[e $U 455  ]
-[e :U 454 ]
+[e $ < _j -> 4 `i 445  ]
+[e $U 446  ]
+[e :U 445 ]
 {
-[; ;serialcomms.c: 284: if(i-j<Nsignal){
-"284
-[e $ ! < - _i _j _Nsignal 457  ]
+[; ;serialcomms.c: 288: if(i-j<Nsignal){
+"288
+[e $ ! < - _i _j _Nsignal 448  ]
 {
-[; ;serialcomms.c: 285: xLPF = xLPF + cmFilterCoeff[j]*cmYreal[i-j];
-"285
-[e = _xLPF + _xLPF * *U + &U _cmFilterCoeff * -> -> _j `ui `ux -> -> # *U &U _cmFilterCoeff `ui `ux -> *U + &U _cmYreal * -> -> - _i _j `ui `ux -> -> # *U &U _cmYreal `ui `ux `i ]
-"286
-}
-[e :U 457 ]
-"288
-}
-"283
-[e ++ _j -> 1 `i ]
-[e $ < _j -> 4 `i 454  ]
-[e :U 455 ]
-"288
-}
+[; ;serialcomms.c: 289: xLPF = xLPF + cmFilterCoeff[j]*cmYreal[i-j];
 "289
-}
-[e :U 453 ]
-[; ;serialcomms.c: 286: }
-[; ;serialcomms.c: 288: }
-[; ;serialcomms.c: 289: }
-[; ;serialcomms.c: 290: if (i>4/2){
+[e = _xLPF + _xLPF * *U + &U _cmFilterCoeff * -> -> _j `ui `ux -> -> # *U &U _cmFilterCoeff `ui `ux -> *U + &U _cmYreal * -> -> - _i _j `ui `ux -> -> # *U &U _cmYreal `ui `ux `i ]
 "290
-[e $ ! > _i / -> 4 `i -> 2 `i 458  ]
-{
-[; ;serialcomms.c: 294: cmYreal[i-3] = 4*cmYreal[i-3] - xBuffer;
-"294
-[e = *U + &U _cmYreal * -> -> - _i -> 3 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux -> - * -> 4 `i -> *U + &U _cmYreal * -> -> - _i -> 3 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux `i _xBuffer `s ]
-"296
 }
-[e :U 458 ]
-[; ;serialcomms.c: 296: }
-[; ;serialcomms.c: 297: xBuffer = xLPF;
-"297
-[e = _xBuffer _xLPF ]
-"298
-}
-"274
-[e ++ _i -> 1 `i ]
 [e :U 448 ]
-[e $ < _i + _Nsignal / -> 4 `i -> 2 `i 445  ]
+"292
+}
+"287
+[e ++ _j -> 1 `i ]
+[e $ < _j -> 4 `i 445  ]
 [e :U 446 ]
+"292
+}
+"293
+}
+[e :U 444 ]
+[; ;serialcomms.c: 290: }
+[; ;serialcomms.c: 292: }
+[; ;serialcomms.c: 293: }
+[; ;serialcomms.c: 294: if (i>4/2){
+"294
+[e $ ! > _i / -> 4 `i -> 2 `i 449  ]
+{
+[; ;serialcomms.c: 298: cmYreal[i-3] = 4*cmYreal[i-3] - xBuffer;
 "298
+[e = *U + &U _cmYreal * -> -> - _i -> 3 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux -> - * -> 4 `i -> *U + &U _cmYreal * -> -> - _i -> 3 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux `i _xBuffer `s ]
+"300
 }
-[; ;serialcomms.c: 298: }
-[; ;serialcomms.c: 301: cmYreal[Nsignal-1] = 4*cmYreal[Nsignal-1] - xBuffer;
+[e :U 449 ]
+[; ;serialcomms.c: 300: }
+[; ;serialcomms.c: 301: xBuffer = xLPF;
 "301
-[e = *U + &U _cmYreal * -> -> - _Nsignal -> 1 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux -> - * -> 4 `i -> *U + &U _cmYreal * -> -> - _Nsignal -> 1 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux `i _xBuffer `s ]
-[; ;serialcomms.c: 303: }
-"303
-[e :UE 444 ]
+[e = _xBuffer _xLPF ]
+"302
 }
+"278
+[e ++ _i -> 1 `i ]
+[e :U 439 ]
+[e $ < _i + _Nsignal / -> 4 `i -> 2 `i 436  ]
+[e :U 437 ]
+"302
+}
+[; ;serialcomms.c: 302: }
+[; ;serialcomms.c: 305: cmYreal[Nsignal-1] = 4*cmYreal[Nsignal-1] - xBuffer;
 "305
+[e = *U + &U _cmYreal * -> -> - _Nsignal -> 1 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux -> - * -> 4 `i -> *U + &U _cmYreal * -> -> - _Nsignal -> 1 `i `ui `ux -> -> # *U &U _cmYreal `ui `ux `i _xBuffer `s ]
+[; ;serialcomms.c: 307: }
+"307
+[e :UE 435 ]
+}
+"309
 [v _cmFftFun `(v ~T0 @X0 1 ef ]
 {
-[; ;serialcomms.c: 305: void cmFftFun(){
+[; ;serialcomms.c: 309: void cmFftFun(){
 [e :U _cmFftFun ]
 [f ]
-"367
+"371
 [v _sizeData `s ~T0 @X0 1 a ]
-[; ;serialcomms.c: 367: short sizeData = log(128)/log(2);
+[; ;serialcomms.c: 371: short sizeData = log(128)/log(2);
 [e = _sizeData -> / ( _log (1 -> -> 128 `i `d ( _log (1 -> -> 2 `i `d `s ]
-[; ;serialcomms.c: 368: fix_fft(cmYreal, cmYimag, sizeData);
-"368
+[; ;serialcomms.c: 372: fix_fft(cmYreal, cmYimag, sizeData);
+"372
 [e ( _fix_fft (3 , , &U _cmYreal &U _cmYimag _sizeData ]
-"381
+"385
 [v _place `l ~T0 @X0 1 a ]
 [v _root `l ~T0 @X0 1 a ]
-[; ;serialcomms.c: 381: long place, root;
-[; ;serialcomms.c: 382: for (int k=0; k < 128/2; k++)
-"382
+[; ;serialcomms.c: 385: long place, root;
+[; ;serialcomms.c: 386: for (int k=0; k < 128/2; k++)
+"386
 {
 [v _k `i ~T0 @X0 1 a ]
 [e = _k -> 0 `i ]
-[e $ < _k / -> 128 `i -> 2 `i 460  ]
-[e $U 461  ]
-"383
-[e :U 460 ]
-[; ;serialcomms.c: 383: {
+[e $ < _k / -> 128 `i -> 2 `i 451  ]
+[e $U 452  ]
+"387
+[e :U 451 ]
+[; ;serialcomms.c: 387: {
 {
-[; ;serialcomms.c: 384: cmYreal[k] = (cmYreal[k] * cmYreal[k] +
-[; ;serialcomms.c: 385: cmYimag[k] * cmYimag[k]);
-"385
+[; ;serialcomms.c: 388: cmYreal[k] = (cmYreal[k] * cmYreal[k] +
+[; ;serialcomms.c: 389: cmYimag[k] * cmYimag[k]);
+"389
 [e = *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux -> + * -> *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux `i -> *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux `i * -> *U + &U _cmYimag * -> -> _k `ui `ux -> -> # *U &U _cmYimag `ui `ux `i -> *U + &U _cmYimag * -> -> _k `ui `ux -> -> # *U &U _cmYimag `ui `ux `i `s ]
-[; ;serialcomms.c: 390: place = 0x40000000;
-"390
-[e = _place -> 1073741824 `l ]
-[; ;serialcomms.c: 391: root = 0;
-"391
-[e = _root -> -> 0 `i `l ]
-[; ;serialcomms.c: 393: if (cmYreal[k] >= 0)
-"393
-[e $ ! >= -> *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux `i -> 0 `i 463  ]
-[; ;serialcomms.c: 394: {
+[; ;serialcomms.c: 394: place = 0x40000000;
 "394
-{
-[; ;serialcomms.c: 395: while (place > cmYreal[k]) place = place >> 2;
+[e = _place -> 1073741824 `l ]
+[; ;serialcomms.c: 395: root = 0;
 "395
-[e $U 464  ]
-[e :U 465 ]
-[e = _place >> _place -> 2 `i ]
-[e :U 464 ]
-[e $ > _place -> *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux `l 465  ]
-[e :U 466 ]
-[; ;serialcomms.c: 397: while (place)
+[e = _root -> -> 0 `i `l ]
+[; ;serialcomms.c: 397: if (cmYreal[k] >= 0)
 "397
-[e $U 467  ]
-[e :U 468 ]
+[e $ ! >= -> *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux `i -> 0 `i 454  ]
 [; ;serialcomms.c: 398: {
 "398
 {
-[; ;serialcomms.c: 399: if (cmYreal[k] >= root + place)
+[; ;serialcomms.c: 399: while (place > cmYreal[k]) place = place >> 2;
 "399
-[e $ ! >= -> *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux `l + _root _place 470  ]
-[; ;serialcomms.c: 400: {
-"400
-{
-[; ;serialcomms.c: 401: cmYreal[k] -= root + place;
-"401
-[e =- *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux -> + _root _place `s ]
-[; ;serialcomms.c: 402: root += place * 2;
-"402
-[e =+ _root * _place -> -> 2 `i `l ]
-"403
-}
-[e :U 470 ]
-[; ;serialcomms.c: 403: }
-[; ;serialcomms.c: 404: root = root >> 1;
-"404
-[e = _root >> _root -> 1 `i ]
-[; ;serialcomms.c: 405: place = place >> 2;
-"405
+[e $U 455  ]
+[e :U 456 ]
 [e = _place >> _place -> 2 `i ]
+[e :U 455 ]
+[e $ > _place -> *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux `l 456  ]
+[e :U 457 ]
+[; ;serialcomms.c: 401: while (place)
+"401
+[e $U 458  ]
+[e :U 459 ]
+[; ;serialcomms.c: 402: {
+"402
+{
+[; ;serialcomms.c: 403: if (cmYreal[k] >= root + place)
+"403
+[e $ ! >= -> *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux `l + _root _place 461  ]
+[; ;serialcomms.c: 404: {
+"404
+{
+[; ;serialcomms.c: 405: cmYreal[k] -= root + place;
+"405
+[e =- *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux -> + _root _place `s ]
+[; ;serialcomms.c: 406: root += place * 2;
 "406
-}
-[e :U 467 ]
-"397
-[e $ != _place -> -> 0 `i `l 468  ]
-[e :U 469 ]
+[e =+ _root * _place -> -> 2 `i `l ]
 "407
 }
-[e :U 463 ]
-[; ;serialcomms.c: 406: }
-[; ;serialcomms.c: 407: }
-[; ;serialcomms.c: 408: cmYreal[k] = root;
-"408
-[e = *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux -> _root `s ]
-"409
-}
-"382
-[e ++ _k -> 1 `i ]
-[e $ < _k / -> 128 `i -> 2 `i 460  ]
 [e :U 461 ]
+[; ;serialcomms.c: 407: }
+[; ;serialcomms.c: 408: root = root >> 1;
+"408
+[e = _root >> _root -> 1 `i ]
+[; ;serialcomms.c: 409: place = place >> 2;
 "409
+[e = _place >> _place -> 2 `i ]
+"410
 }
-[; ;serialcomms.c: 409: }
-[; ;serialcomms.c: 420: }
-"420
-[e :UE 459 ]
+[e :U 458 ]
+"401
+[e $ != _place -> -> 0 `i `l 459  ]
+[e :U 460 ]
+"411
+}
+[e :U 454 ]
+[; ;serialcomms.c: 410: }
+[; ;serialcomms.c: 411: }
+[; ;serialcomms.c: 412: cmYreal[k] = root;
+"412
+[e = *U + &U _cmYreal * -> -> _k `ui `ux -> -> # *U &U _cmYreal `ui `ux -> _root `s ]
+"413
+}
+"386
+[e ++ _k -> 1 `i ]
+[e $ < _k / -> 128 `i -> 2 `i 451  ]
+[e :U 452 ]
+"413
+}
+[; ;serialcomms.c: 413: }
+[; ;serialcomms.c: 424: }
+"424
+[e :UE 450 ]
 }
 [p f _printf 8422528 ]
 [a 13C 126 126 126 0 ]
-[a 17C 9 37 105 32 37 54 105 32 37 54 105 10 0 ]
-[a 19C 9 37 105 32 37 54 105 10 0 ]
-[a 21C 9 37 105 32 37 54 105 10 0 ]
-[a 23C 9 37 105 32 37 105 32 37 105 10 0 ]
-[a 24C 9 37 105 32 37 105 32 37 105 10 0 ]
-[a 22C 9 84 101 115 116 105 110 103 32 99 108 97 115 115 105 102 105 101 114 46 46 46 10 0 ]
-[a 16C 73 110 112 117 116 32 115 105 103 110 97 108 46 46 46 10 0 ]
-[a 20C 9 67 111 109 112 117 116 105 110 103 32 70 70 84 46 46 46 10 0 ]
-[a 15C 80 101 114 102 111 114 109 105 110 103 32 111 110 45 112 117 109 112 32 67 77 46 46 46 10 0 ]
-[a 18C 9 67 111 109 112 117 116 105 110 103 32 72 80 70 46 46 46 10 0 ]
+[a 15C 9 37 105 32 37 105 32 37 105 10 0 ]
 [a 14C 37 54 105 44 37 54 105 44 37 54 105 44 37 53 117 13 10 0 ]
 [a 5C 110 101 119 32 70 73 76 69 37 51 105 46 116 120 116 13 10 0 ]
 [a 6C 97 112 112 101 110 100 32 70 73 76 69 37 51 105 46 116 120 116 13 10 0 ]
@@ -6045,7 +5955,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [a 2C 97 112 112 101 110 100 32 70 73 76 69 37 49 105 46 116 120 116 13 10 0 ]
 [a 8C 37 50 105 58 37 50 105 58 37 50 105 13 10 0 ]
 [a 11C 37 50 105 58 37 50 105 58 37 50 105 13 10 0 ]
-[a 25C 37 54 105 44 37 54 105 44 37 54 105 44 37 53 117 44 37 105 13 10 0 ]
+[a 16C 37 54 105 44 37 54 105 44 37 54 105 44 37 53 117 44 37 105 13 10 0 ]
 [a 10C 80 117 109 112 105 110 103 32 83 116 111 112 112 101 100 46 13 10 0 ]
 [a 7C 13 13 10 76 111 103 32 115 116 97 114 116 101 100 33 13 10 0 ]
 [a 9C 37 50 105 47 37 50 105 47 37 52 105 13 10 10 0 ]

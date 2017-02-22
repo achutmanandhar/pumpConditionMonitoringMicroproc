@@ -10,9 +10,9 @@ CND_CONF=default
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/SerialDayFileVerify6.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=SerialDayFileVerify6.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=serialdayfileverify6/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/SerialDayFileCM.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=SerialDayFileCM.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=serialdayfilecm/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/serialdayfileverify6/bin
+makeDirectory ${TMPDIR}/serialdayfilecm/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/serialdayfileverify6.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/serialdayfilecm.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/serialdayfileverify6.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/serialdayfilecm.tar *
 checkReturnCode
 
 # Cleanup

@@ -5519,43 +5519,23 @@ cmWinLen = cmWinLen+1;
 else
 {
 
-
-printf("Performing on-pump CM...\n");
-
-
-printf("Input signal...\n");
-for (int iTemp=0;iTemp<128;iTemp++){
-printf("\t%i %6i %6i\n",iTemp,cmYreal[iTemp],cmYimag[iTemp]);
-}
-
-
-
-printf("\tComputing HPF...\n");
+# 227
 cmFilterHighPassUsingLowPass();
 
-for (int iTemp=0;iTemp<128;iTemp++){
-printf("\t%i %6i\n",iTemp,cmYreal[iTemp]);
-}
-
-
-
-printf("\tComputing FFT...\n");
+# 236
 cmFftFun();
 
-
-for (int iTemp=0;iTemp<128/2;iTemp++){
-printf("\t%i %6i\n",iTemp,cmYreal[iTemp]);
-}
-
-
-
-printf("\tTesting classifier...\n");
+# 246
 cmYout = 1*cmWeightVector[0];
 
 printf("\t%i %i %i\n",1,cmWeightVector[0],cmYout);
 for (int iW=1,iTemp=2;iW<21;iW++,iTemp=iTemp+3){
-cmYout = cmYout+cmYreal[iTemp]*cmWeightVector[iW];
-printf("\t%i %i %i\n",cmYreal[iTemp],cmWeightVector[iW],cmYout);
+
+
+
+cmYout = cmYout+cmWeightVector[iW]*10*log(cmYreal[iTemp])/log(10);
+
+
 }
 
 
@@ -5611,11 +5591,11 @@ cmYreal[Nsignal-1] = 4*cmYreal[Nsignal-1] - xBuffer;
 
 void cmFftFun(){
 
-# 367
+# 371
 short sizeData = log(128)/log(2);
 fix_fft(cmYreal, cmYimag, sizeData);
 
-# 381
+# 385
 long place, root;
 for (int k=0; k < 128/2; k++)
 {
@@ -5646,5 +5626,5 @@ place = place >> 2;
 cmYreal[k] = root;
 }
 
-# 420
+# 424
 }

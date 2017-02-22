@@ -213,42 +213,46 @@ void cmStuffsWrapperFun(){
     {       
         // Perform on-pump CM 
         // Comment following when deploying in field
-        printf("Performing on-pump CM...\n");
+//         printf("Performing on-pump CM...\n");
         // Print inputs (real,imag) to HPF/fft
         // Comment following for loop prints when deploying in field
-        printf("Input signal...\n");
-        for (int iTemp=0;iTemp<cmNFFT;iTemp++){                        
-            printf("\t%i %6i %6i\n",iTemp,cmYreal[iTemp],cmYimag[iTemp]);
-        }
+//         printf("Input signal...\n");
+//         for (int iTemp=0;iTemp<cmNFFT;iTemp++){                        
+//             printf("\t%i %6i %6i\n",iTemp,cmYreal[iTemp],cmYimag[iTemp]);
+//         }
 
         // Filter using HPF = Signal - LPF(Phase-corrected moving average)
         // Comment following when deploying in field
-        printf("\tComputing HPF...\n");
+//        printf("\tComputing HPF...\n");
         cmFilterHighPassUsingLowPass();
         // Comment following for loop prints when deploying in field
-        for (int iTemp=0;iTemp<cmNFFT;iTemp++){                        
-            printf("\t%i %6i\n",iTemp,cmYreal[iTemp]);
-        }
+//        for (int iTemp=0;iTemp<cmNFFT;iTemp++){                        
+//            printf("\t%i %6i\n",iTemp,cmYreal[iTemp]);
+//        }
 
         // Compute FFT
         // Comment following when deploying in field
-        printf("\tComputing FFT...\n");
+//        printf("\tComputing FFT...\n");
         cmFftFun();
         // Print magnitude of fft
         // Comment following for loop prints when deploying in field
-        for (int iTemp=0;iTemp<cmNFFT/2;iTemp++){
-            printf("\t%i %6i\n",iTemp,cmYreal[iTemp]);
-        }
+//        for (int iTemp=0;iTemp<cmNFFT/2;iTemp++){
+//            printf("\t%i %6i\n",iTemp,cmYreal[iTemp]);
+//        }
 
         // Test classifier: yOut=Xtest*w
         // Comment following when deploying in field
-        printf("\tTesting classifier...\n");
+//        printf("\tTesting classifier...\n");
         cmYout = 1*cmWeightVector[0];
         // Comment following for loop prints when deploying in field
         printf("\t%i %i %i\n",1,cmWeightVector[0],cmYout);
         for (int iW=1,iTemp=2;iW<cmWeightLen;iW++,iTemp=iTemp+3){
-            cmYout = cmYout+cmYreal[iTemp]*cmWeightVector[iW];                        
-            printf("\t%i %i %i\n",cmYreal[iTemp],cmWeightVector[iW],cmYout);
+            // If using |FFT|
+//            cmYout = cmYout+cmYreal[iTemp]*cmWeightVector[iW];    
+            // If using 10*log10(|FFT|)
+            cmYout = cmYout+cmWeightVector[iW]*10*log(cmYreal[iTemp])/log(10); 
+            // Comment following when deploying in field
+//            printf("\t%i %i %i\n",cmYreal[iTemp],cmWeightVector[iW],cmYout);
         }          
 
         // Record z, y, z, tt, and yOut
